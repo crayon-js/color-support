@@ -18,20 +18,6 @@
 		"type": "git",
 		"url": "https://github.com/Im-Beast/crayon.js.git"
 	},
-	"ava": {
-		"files": [
-			"test/ava.test.ts"
-		],
-		"extensions": {
-			"ts": "module"
-		},
-		"nodeArguments": [
-			"--loader=ts-node/esm"
-		],
-		"nonSemVerExperiments": {
-			"configurableModuleFormat": true
-		}
-	},
 	"keywords": [
 		"color-support",
 		"support-colors",
@@ -64,11 +50,7 @@
 	"files": [
 		"lib"
 	],
-	"dependencies": {
-		"global-dirs": "^3.0.0"
-	},
 	"devDependencies": {
-		"@ava/typescript": "^1.1.1",
 		"@types/node": "^14.14.43",
 		"@types/uglify-js": "^3.13.0",
 		"@typescript-eslint/eslint-plugin": "^4.21.0",
