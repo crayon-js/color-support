@@ -1,11 +1,6 @@
 import { execSync } from 'child_process'
 import os from 'os'
-interface CrayonColorSupport {
-	threeBitColor: boolean
-	fourBitColor: boolean
-	highColor: boolean
-	trueColor: boolean
-}
+import { CrayonColorSupport } from './types'
 
 export const getWindowsVersion = (): number[] => {
 	if (process.platform == 'win32') {
@@ -68,7 +63,7 @@ export const getColorSupport = (): CrayonColorSupport => {
 	const winVersion = getWindowsVersion()
 	if (winVersion.length) {
 		// https://devblogs.microsoft.com/commandline/24-bit-color-in-the-windows-console/
-		threeBitColor = fourBitColor = highColor = trueColor = winVersion[2] > 14931
+		threeBitColor = fourBitColor = highColor = trueColor = winVersion[1] > 14931
 		return supportedColors()
 	}
 
