@@ -41,11 +41,7 @@
 		"log"
 	],
 	"scripts": {
-		"build": "tsc && node bundle.js",
-		"bench": "node --loader ts-node/esm test/benchmark.ts",
-		"test": "ava",
-		"coverage": "c8 ava",
-		"coverage-html": "c8 --reporter=html ava"
+		"build": "tsc && node bundle.js"
 	},
 	"files": [
 		"lib"
