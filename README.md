@@ -28,6 +28,14 @@ const cached = supportedColors(); // cached getColorSupport (it just returns cac
 const windowsVersion = getWindowsVersion(); // Reusable function [version (7/8/10...), versionId (14931...)], empty if detected system is not Windows
 ```
 
+## Usage with crayon.js
+```ts
+import crayon from 'crayon.js'; // it'll still work with packages that extend crayon instance as its config is global
+import { getColorSupport } from '@crayon.js/color-support';
+
+crayon.config.colorSupport = getColorSupport();
+```
+
 ## :handshake: Contributing
 #### Feel free to add any commits, issues and pull requests
 
