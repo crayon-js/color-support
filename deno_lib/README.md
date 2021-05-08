@@ -16,7 +16,7 @@ interface CrayonColorSupport {
 
 ## Usage
 ```ts
-import { getColorSupport, supportedColors, getWindowsVersion } from 'https://deno.land/x/crayon-color-support/mod.ts';
+import { getColorSupport, supportedColors, getWindowsVersion } from 'https://deno.land/x/crayon_color_support/mod.ts';
 
 const support = getColorSupport(); // detect terminal color support
 const cached = supportedColors(); // cached getColorSupport (it just returns cached object)
@@ -26,7 +26,7 @@ const windowsVersion = getWindowsVersion(); // Reusable function [version (7/8/1
 ## Usage with crayon.js
 ```ts
 import crayon from 'https://deno.land/x/crayon/mod.ts'; // it'll still work with modules that extend crayon instance as its config is global
-import { getColorSupport } from 'https://deno.land/x/crayon-color-support/mod.ts';
+import { getColorSupport } from 'https://deno.land/x/crayon_color_support/mod.ts';
 
 crayon.config.colorSupport = getColorSupport();
 ```
