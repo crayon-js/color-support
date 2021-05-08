@@ -19,10 +19,7 @@
 		"url": "https://github.com/Im-Beast/crayon.js.git"
 	},
 	"denoify": {
-		"includes": [
-			"README.md",
-			"LICENSE.md"
-		]
+		"includes": []
 	},
 	"keywords": [
 		"color-support",
