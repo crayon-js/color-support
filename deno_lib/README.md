@@ -1,13 +1,8 @@
-<font size="6"><p align="center"><b>🖍️ Crayon.js color support</b></p></font>
+<font size="6"><p align="center"><b>🖍️ Crayon.js color support for 🦕 Deno</b></p></font>
 <hr />
 
 ## :books: About
 ##### This package is extension for [crayon.js](https://github.com/crayon-js/crayon) however it can still be used by other packages.
-
-### Installation
-```bash
-npm install @crayon.js/color-support #yarn add @crayon.js/color-support
-```
 
 ## Syntax
 ```ts
@@ -21,7 +16,7 @@ interface CrayonColorSupport {
 
 ## Usage
 ```ts
-import { getColorSupport, supportedColors, getWindowsVersion } from '@crayon.js/color-support';
+import { getColorSupport, supportedColors, getWindowsVersion } from 'https://deno.land/x/crayon-color-support/mod.ts';
 
 const support = getColorSupport(); // detect terminal color support
 const cached = supportedColors(); // cached getColorSupport (it just returns cached object)
@@ -30,11 +25,14 @@ const windowsVersion = getWindowsVersion(); // Reusable function [version (7/8/1
 
 ## Usage with crayon.js
 ```ts
-import crayon from 'crayon.js'; // it'll still work with packages that extend crayon instance as its config is global
-import { getColorSupport } from '@crayon.js/color-support';
+import crayon from 'https://deno.land/x/crayon/mod.ts'; // it'll still work with modules that extend crayon instance as its config is global
+import { getColorSupport } from 'https://deno.land/x/crayon-color-support/mod.ts';
 
 crayon.config.colorSupport = getColorSupport();
 ```
+
+### Wiki
+To learn more about Crayon and its API look [here](https://github.com/crayon-js/crayon/wiki)
 
 ## :handshake: Contributing
 #### Feel free to add any commits, issues and pull requests
