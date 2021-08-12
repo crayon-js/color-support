@@ -41,7 +41,7 @@
 		"log"
 	],
 	"scripts": {
-		"build": "node bundle.js"
+		"build": "node --loader ts-node/esm/transpile-only.mjs bundle.ts"
 	},
 	"files": [
 		"lib"
