@@ -36,6 +36,9 @@ import { getColorSupport } from '@crayon.js/color-support';
 crayon.config.colorSupport = getColorSupport();
 ```
 
+### Wiki
+To learn more about Crayon and its API look [here](https://github.com/crayon-js/crayon/wiki)
+
 ## :handshake: Contributing
 #### Feel free to add any commits, issues and pull requests
 
