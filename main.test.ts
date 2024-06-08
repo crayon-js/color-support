@@ -1,4 +1,6 @@
+// Copyright 2024 Im-Beast. All rights reserved. MIT license.
 /// <reference lib="deno.ns" />
+
 import { assertEquals } from "@std/assert";
 import { ColorSupport, getColorSupport } from "./main.ts";
 
