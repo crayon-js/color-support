@@ -109,16 +109,24 @@ export async function getColorSupport(
   }
 
   if (await hasPermission(Permission.Env, "TERM")) {
-    const term = env("TERM");
+    const term = env("TERM")?.toLowerCase();
     switch (term) {
       case "iterm":
-      case "linux-truecolor":
-      case "screen-truecolor":
-      case "tmux-truecolor":
-      case "xterm-truecolor":
         return ColorSupport.TrueColor;
+      case "xterm":
+      case "rxvt":
+      case "tmux":
+      case "putty":
+      case "teken":
+        return ColorSupport.HighColor;
+      case "dumb":
+        return ColorSupport.None;
       default:
-        if (term?.startsWith("vte")) {
+        if (
+          term?.startsWith("vte") ||
+          term?.endsWith("24bit") ||
+          term?.endsWith("truecolor")
+        ) {
           return ColorSupport.TrueColor;
         } else if (term?.includes("256")) {
           return ColorSupport.HighColor;
