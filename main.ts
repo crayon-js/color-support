@@ -8,16 +8,6 @@ function parseEnv(env: string | undefined): boolean {
   return !!env && env !== "0";
 }
 
-let NO_COLOR = false;
-let FORCE_COLOR = false;
-if (await hasPermission(Permission.Env)) {
-  NO_COLOR = parseEnv(env("NO_COLOR"));
-  FORCE_COLOR = parseEnv(env("FORCE_COLOR"));
-} else if ("Deno" in globalThis) {
-  // @ts-expect-error Deno is not defined as a type
-  NO_COLOR = globalThis.Deno.noColor;
-}
-
 const CITrueColor = [
   "GITHUB_ACTIONS",
   "GITEA_ACTIONS",
@@ -73,8 +63,23 @@ export enum ColorSupport {
 export async function getColorSupport(
   defaultColorSupport = ColorSupport.FourBit,
 ): Promise<ColorSupport> {
-  if (FORCE_COLOR) return ColorSupport.TrueColor;
-  else if (NO_COLOR) return ColorSupport.NoColor;
+  if ("Deno" in globalThis) {
+    if (globalThis.Deno.noColor) return ColorSupport.NoColor;
+  }
+
+  if (
+    await hasPermission(Permission.Env, "NO_COLOR") &&
+    parseEnv(env("NO_COLOR"))
+  ) {
+    return ColorSupport.NoColor;
+  }
+
+  if (
+    await hasPermission(Permission.Env, "FORCE_COLOR") &&
+    parseEnv(env("FORCE_COLOR"))
+  ) {
+    return ColorSupport.TrueColor;
+  }
 
   if (await hasPermission(Permission.Sys, "osRelease")) {
     const details = await osDetails();
