@@ -8,20 +8,6 @@ function parseEnv(env: string | undefined): boolean {
   return !!env && env !== "0";
 }
 
-let NO_COLOR = false;
-let FORCE_COLOR = false;
-if (await hasPermission(Permission.Env)) {
-  NO_COLOR = parseEnv(env("NO_COLOR"));
-  FORCE_COLOR = parseEnv(env("FORCE_COLOR"));
-} else if ("Deno" in globalThis) {
-  // @ts-expect-error Deno is not defined as a type
-  NO_COLOR = globalThis.Deno.noColor;
-}
-
-async function checkCI(ci: string): Promise<boolean> {
-  return await hasPermission(Permission.Env, ci) && parseEnv(env(ci));
-}
-
 const CITrueColor = [
   "GITHUB_ACTIONS",
   "GITEA_ACTIONS",
@@ -77,8 +63,24 @@ export enum ColorSupport {
 export async function getColorSupport(
   defaultColorSupport = ColorSupport.FourBit,
 ): Promise<ColorSupport> {
-  if (FORCE_COLOR) return ColorSupport.TrueColor;
-  else if (NO_COLOR) return ColorSupport.NoColor;
+  if ("Deno" in globalThis) {
+    // @ts-ignore Deno types
+    if (globalThis.Deno?.noColor) return ColorSupport.NoColor;
+  }
+
+  if (
+    await hasPermission(Permission.Env, "NO_COLOR") &&
+    parseEnv(env("NO_COLOR"))
+  ) {
+    return ColorSupport.NoColor;
+  }
+
+  if (
+    await hasPermission(Permission.Env, "FORCE_COLOR") &&
+    parseEnv(env("FORCE_COLOR"))
+  ) {
+    return ColorSupport.TrueColor;
+  }
 
   if (await hasPermission(Permission.Sys, "osRelease")) {
     const details = await osDetails();
@@ -108,16 +110,24 @@ export async function getColorSupport(
   }
 
   if (await hasPermission(Permission.Env, "TERM")) {
-    const term = env("TERM");
+    const term = env("TERM")?.toLowerCase();
     switch (term) {
       case "iterm":
-      case "linux-truecolor":
-      case "screen-truecolor":
-      case "tmux-truecolor":
-      case "xterm-truecolor":
         return ColorSupport.TrueColor;
+      case "xterm":
+      case "rxvt":
+      case "tmux":
+      case "putty":
+      case "teken":
+        return ColorSupport.HighColor;
+      case "dumb":
+        return ColorSupport.None;
       default:
-        if (term?.startsWith("vte")) {
+        if (
+          term?.startsWith("vte") ||
+          term?.endsWith("24bit") ||
+          term?.endsWith("truecolor")
+        ) {
           return ColorSupport.TrueColor;
         } else if (term?.includes("256")) {
           return ColorSupport.HighColor;
@@ -127,10 +137,16 @@ export async function getColorSupport(
   }
 
   if (await hasPermission(Permission.Env, "CI") && env("CI")) {
-    if (CITrueColor.find(checkCI)) {
-      return ColorSupport.TrueColor;
-    } else if (CIFourBit.find(checkCI)) {
-      return ColorSupport.FourBit;
+    for (const ci of CITrueColor) {
+      if (await hasPermission(Permission.Env, ci) && parseEnv(env(ci))) {
+        return ColorSupport.TrueColor;
+      }
+    }
+
+    for (const ci of CIFourBit) {
+      if (await hasPermission(Permission.Env, ci) && parseEnv(env(ci))) {
+        return ColorSupport.FourBit;
+      }
     }
   }
 
