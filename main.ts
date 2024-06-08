@@ -18,10 +18,6 @@ if (await hasPermission(Permission.Env)) {
   NO_COLOR = globalThis.Deno.noColor;
 }
 
-async function checkCI(ci: string): Promise<boolean> {
-  return await hasPermission(Permission.Env, ci) && parseEnv(env(ci));
-}
-
 const CITrueColor = [
   "GITHUB_ACTIONS",
   "GITEA_ACTIONS",
@@ -127,10 +123,16 @@ export async function getColorSupport(
   }
 
   if (await hasPermission(Permission.Env, "CI") && env("CI")) {
-    if (CITrueColor.find(checkCI)) {
-      return ColorSupport.TrueColor;
-    } else if (CIFourBit.find(checkCI)) {
-      return ColorSupport.FourBit;
+    for (const ci of CITrueColor) {
+      if (await hasPermission(Permission.Env, ci) && parseEnv(env(ci))) {
+        return ColorSupport.TrueColor;
+      }
+    }
+
+    for (const ci of CIFourBit) {
+      if (await hasPermission(Permission.Env, ci) && parseEnv(env(ci))) {
+        return ColorSupport.FourBit;
+      }
     }
   }
 
