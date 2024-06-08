@@ -64,7 +64,8 @@ export async function getColorSupport(
   defaultColorSupport = ColorSupport.FourBit,
 ): Promise<ColorSupport> {
   if ("Deno" in globalThis) {
-    if (globalThis.Deno.noColor) return ColorSupport.NoColor;
+    // @ts-ignore Deno types
+    if (globalThis.Deno?.noColor) return ColorSupport.NoColor;
   }
 
   if (
