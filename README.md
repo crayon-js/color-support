@@ -1,46 +1,41 @@
-<font size="6"><p align="center"><b>🖍️ Crayon.js color support</b></p></font>
-<hr />
+# 🎨 Color support
 
-## :books: About
-##### This package is extension for [crayon.js](https://github.com/crayon-js/crayon) however it can still be used by other packages.
+Terminal color support detection package.\
+Supports [NO_COLOR](https://no-color.org/) and
+[FORCE_COLOR](https://force-color.org/).
 
-### Installation
-```bash
-npm install @crayon.js/color-support #yarn add @crayon.js/color-support
-```
+## 🌈 Usage
 
-## Syntax
 ```ts
-interface CrayonColorSupport {
-	threeBitColor: boolean
-	fourBitColor: boolean
-	highColor: boolean
-	trueColor: boolean
+import { ColorSupport, getColorSupport } from "@crayon/color-support";
+
+const colors = await getColorSupport();
+console.log(colors); // Prints amount of colors supported by current terminal
+
+switch (colors) {
+  case ColorSupport.TrueColor:
+    console.log("over 16mil colors!");
+    break;
+  case ColorSupport.HighColor:
+    console.log("255 colors");
+    break;
+  case ColorSupport.FourBit:
+    console.log("16 colors..");
+    break;
+  case ColorSupport.ThreeBit:
+    console.log("8 colors :/");
+    break;
+  default:
+    console.log("No colors :(");
+    break;
 }
 ```
 
-## Usage
-```ts
-import { getColorSupport, supportedColors, getWindowsVersion } from '@crayon.js/color-support';
+## 🖍 Crayon
 
-const support = getColorSupport(); // detect terminal color support
-const cached = supportedColors(); // cached getColorSupport (it just returns cached object)
-const windowsVersion = getWindowsVersion(); // Reusable function [version (7/8/10...), versionId (14931...)], empty if detected system is not Windows
-```
+This module is made as a first party extension for
+[Crayon](https://github.com/crayon-js/crayon), terminal styling package.
 
-## Usage with crayon.js
-```ts
-import crayon from 'crayon.js'; // it'll still work with packages that extend crayon instance as its config is global
-import { getColorSupport } from '@crayon.js/color-support';
+## 📝 Licensing
 
-crayon.config.colorSupport = getColorSupport();
-```
-
-### Wiki
-To learn more about Crayon and its API look [here](https://github.com/crayon-js/crayon/wiki)
-
-## :handshake: Contributing
-#### Feel free to add any commits, issues and pull requests
-
-## :memo: Licensing
-#### This project is available under MIT License conditions.
+This project is available under **MIT** License conditions.

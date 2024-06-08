@@ -1,0 +1,19 @@
+{
+  "version": "3",
+  "packages": {
+    "specifiers": {
+      "jsr:@beast/compat@^0.1.2": "jsr:@beast/compat@0.1.2"
+    },
+    "jsr": {
+      "@beast/compat@0.1.2": {
+        "integrity": "f7837b100e3f4518e114f823570a1a1a2e49efaa7ed41de12eb5e079749f573f"
+      }
+    }
+  },
+  "remote": {},
+  "workspace": {
+    "dependencies": [
+      "jsr:@beast/compat@^0.1.2"
+    ]
+  }
+}
