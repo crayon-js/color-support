@@ -1,0 +1,11 @@
+{
+  "name": "@crayon/color-support",
+  "version": "2.0.0",
+
+  "imports": { "@beast/compat": "jsr:@beast/compat@^0.1.2" },
+  "exports": "./main.ts",
+
+  "compilerOptions": {
+    "lib": ["es2023", "dom"]
+  }
+}
