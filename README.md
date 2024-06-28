@@ -1,8 +1,9 @@
 # 🎨 Color support
 
 Terminal color support detection package.\
-Supports [NO_COLOR](https://no-color.org/) and
-[FORCE_COLOR](https://force-color.org/).
+Supports [NO_COLOR](https://no-color.org/) and [FORCE_COLOR](https://force-color.org/).
+
+Made primarily for use with [Crayon](https://github.com/crayon-js/crayon)
 
 ## 🌈 Usage
 
@@ -31,10 +32,14 @@ switch (colors) {
 }
 ```
 
-## 🖍 Crayon
+## 🤝 Contributing
 
-This module is made as a first party extension for
-[Crayon](https://github.com/crayon-js/crayon), terminal styling package.
+**Crayon** is open for any contributions.\
+If you feel like you can enhance this project - please open an issue and/or pull request.\
+Code should be well document and easy to follow what's going on.
+
+**Crayon 4.x** follows [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/).\
+If your pull request's code could introduce understandability trouble, please add comments to it.
 
 ## 📝 Licensing
 
